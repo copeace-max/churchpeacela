@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>평화의교회 · Church of Peace LA</title>
+<meta name="description" content="십자가 켜고 좌회전. 로스앤젤레스 코리아타운의 미국장로교(PCUSA) 평화의교회 — 설교, 쇼츠, 김기대 목사의 목회서신, 교회·교단 소식.">
+<meta property="og:title" content="평화의교회 · 십자가 켜고 좌회전">
+<meta property="og:description" content="설교 · 쇼츠 · 목회서신 · 교회 소식 — 평화의교회 웹진">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f1e8; --paper-2:#ede6d8; --ink:#1d1b17; --ink-2:#4a463e; --ink-3:#8a8477;
+  --rule:#d9d1c2; --accent:#b4432b; --accent-2:#5c6b3f; --accent-3:#2e4a6b;
+  --serif:"Noto Serif KR","Apple SD Gothic Neo",serif;
+  --sans:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* masthead */
+.top{border-bottom:1px solid var(--rule);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.top .wrap{display:flex;justify-content:space-between;padding-top:10px;padding-bottom:10px}
+.mast{padding:34px 0 18px;text-align:center;border-bottom:3px double var(--ink)}
+.mast .kicker{font-size:13px;letter-spacing:.3em;color:var(--accent);font-weight:600}
+.mast h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7vw,78px);line-height:1;margin:6px 0 4px;letter-spacing:-.02em}
+.mast .en{font-family:var(--serif);font-size:15px;letter-spacing:.35em;color:var(--ink-2);text-transform:uppercase}
+nav.menu{position:sticky;top:0;background:var(--paper);z-index:20;border-bottom:1px solid var(--rule)}
+nav.menu ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;justify-content:center;overflow-x:auto}
+nav.menu a{display:block;padding:12px 16px;font-weight:600;font-size:15px;white-space:nowrap;border-bottom:3px solid transparent}
+nav.menu a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* sections */
+section{padding:48px 0;border-bottom:1px solid var(--rule)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px}
+.sec-head h2{font-family:var(--serif);font-size:30px;margin:0;font-weight:700}
+.sec-head h2 small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.25em;color:var(--accent);font-weight:600;margin-bottom:4px}
+.sec-head .more{font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--ink-3)}
+.sec-head .more:hover{color:var(--accent);border-color:var(--accent)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.55fr 1fr;gap:32px;align-items:start}
+.player{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hero-txt .label{font-size:12px;letter-spacing:.25em;color:var(--accent);font-weight:600}
+.hero-txt h3{font-family:var(--serif);font-size:clamp(26px,3vw,36px);line-height:1.25;margin:8px 0 10px}
+.hero-txt p{color:var(--ink-2);margin:0 0 14px}
+.hero-txt .meta{font-size:13px;color:var(--ink-3)}
+.btn{display:inline-block;padding:10px 18px;border:1.5px solid var(--ink);border-radius:999px;font-weight:600;font-size:14px;margin-top:10px;margin-right:6px}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.red{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.red:hover{background:#8e3220;border-color:#8e3220}
+
+/* sermon grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{cursor:pointer}
+.card .thumb{aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:var(--paper-2);position:relative}
+.card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.card:hover .thumb img{transform:scale(1.04)}
+.card .thumb::after{content:"▶";position:absolute;right:10px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:11px;padding:3px 8px;border-radius:3px}
+.card h4{font-family:var(--serif);font-size:16px;line-height:1.4;margin:10px 0 4px;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .date{font-size:12px;color:var(--ink-3)}
+.fallback{background:var(--paper-2);padding:18px;border-radius:6px;color:var(--ink-2);font-size:14px}
+
+/* shorts */
+.shorts-band{background:var(--ink);color:var(--paper);margin:0;border:0}
+.shorts-band .sec-head h2,.shorts-band .more{color:var(--paper)}
+.shorts-band .sec-head h2 small{color:#e9b26b}
+.srow{display:flex;gap:16px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+.srow::-webkit-scrollbar{height:6px}.srow::-webkit-scrollbar-thumb{background:#555;border-radius:3px}
+.short{flex:0 0 200px;scroll-snap-align:start;cursor:pointer}
+.short .thumb{aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#333;position:relative}
+.short .thumb img{width:100%;height:100%;object-fit:cover}
+.short h4{font-size:13px;margin:8px 2px 0;font-weight:500;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:#ddd}
+.shorts-embed{aspect-ratio:9/16;max-width:360px;margin:0 auto;background:#000;border-radius:12px;overflow:hidden}
+.shorts-embed iframe{width:100%;height:100%;border:0}
+
+/* letters + news */
+.two{display:grid;grid-template-columns:1.6fr 1fr;gap:48px}
+.letter{padding:22px 0;border-top:1px solid var(--rule)}
+.letter:first-child{border-top:0;padding-top:0}
+.letter .date{font-size:12px;letter-spacing:.15em;color:var(--accent);font-weight:600}
+.letter h3{font-family:var(--serif);font-size:24px;margin:6px 0 10px;line-height:1.3}
+.letter .excerpt{color:var(--ink-2)}
+.letter .read{font-size:14px;font-weight:600;color:var(--accent-3);margin-top:8px;display:inline-block}
+.byline{font-size:13px;color:var(--ink-3);margin-top:6px}
+.news-list{list-style:none;margin:0;padding:0}
+.news-list li{padding:14px 0;border-top:1px solid var(--rule)}
+.news-list li:first-child{border-top:0;padding-top:0}
+.news-list .date{font-size:12px;color:var(--ink-3)}
+.news-list h4{margin:2px 0 4px;font-size:16px;font-family:var(--serif)}
+.news-list p{margin:0;font-size:14px;color:var(--ink-2)}
+.news-list a h4:hover{color:var(--accent)}
+.side-h{font-size:12px;letter-spacing:.25em;color:var(--accent-2);font-weight:700;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.side-block+.side-block{margin-top:36px}
+
+/* film essays */
+.essay-band{background:var(--paper-2)}
+.egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.ecard{background:var(--paper);padding:26px 26px 22px;border-top:4px solid var(--accent-3);cursor:pointer;display:flex;flex-direction:column;min-height:230px;transition:transform .2s,box-shadow .2s}
+.ecard:nth-child(3n+2){border-color:var(--accent)}.ecard:nth-child(3n){border-color:var(--accent-2)}
+.ecard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,.1)}
+.ecard .vs{font-size:12px;letter-spacing:.12em;color:var(--ink-3);font-weight:600;text-transform:uppercase}
+.ecard .vs b{color:var(--accent);font-family:var(--serif);font-style:italic;font-weight:900;margin:0 6px}
+.ecard h3{font-family:var(--serif);font-size:21px;line-height:1.35;margin:10px 0 8px;font-weight:700}
+.ecard p{font-size:14px;color:var(--ink-2);margin:0;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ecard .date{font-size:12px;color:var(--ink-3);margin-top:14px}
+.elist{list-style:none;padding:0;margin:0}
+.elist li{padding:12px 0;border-top:1px solid var(--rule);display:flex;gap:14px;align-items:baseline;cursor:pointer}
+.elist li:hover h4{color:var(--accent)}
+.elist .d{font-size:12px;color:var(--ink-3);flex:0 0 90px}
+.elist h4{margin:0;font-family:var(--serif);font-size:17px;font-weight:600}
+.elist .f{font-size:12px;color:var(--ink-3)}
+.article .src{font-size:13px;color:var(--ink-3)}
+.article .src a{color:var(--accent-3);text-decoration:underline}
+@media(max-width:900px){.egrid{grid-template-columns:1fr}}
+
+/* about + footer */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about p{font-size:17px;line-height:1.8;color:var(--ink-2)}
+.about .info{background:var(--paper-2);padding:26px;border-radius:6px;font-size:15px}
+.about .info dt{font-size:12px;letter-spacing:.2em;color:var(--ink-3);margin-top:12px}
+.about .info dd{margin:2px 0 0;font-weight:600}
+footer{padding:34px 0 50px;text-align:center;color:var(--ink-3);font-size:13px;border:0}
+footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(--ink);letter-spacing:.1em}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,8,5,.86);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.on{display:flex}
+.modal .box{width:min(960px,100%);background:#000;aspect-ratio:16/9;border-radius:6px;overflow:hidden}
+.modal .box.v{aspect-ratio:9/16;width:min(420px,100%);max-height:92vh}
+.modal iframe{width:100%;height:100%;border:0}
+.modal .x{position:absolute;top:18px;right:22px;color:#fff;font-size:34px;cursor:pointer;line-height:1}
+.article{background:var(--paper);color:var(--ink);width:min(760px,100%);max-height:88vh;overflow:auto;padding:44px 48px;border-radius:6px}
+.article .date{font-size:12px;letter-spacing:.15em;color:var(--accent);font-weight:600}
+.article h2{font-family:var(--serif);font-size:30px;margin:8px 0 18px;line-height:1.3}
+.article p{font-size:17px;line-height:1.9;margin:0 0 1.2em}
+.article .byline{border-top:1px solid var(--rule);padding-top:14px}
+
+@media(max-width:900px){
+  .hero,.two,.about{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr);gap:16px}
+  .article{padding:30px 22px}
+  section{padding:36px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap"><span id="top-date"></span><span>Church of Peace · Los Angeles</span></div></div>
+
+<header class="mast">
+  <div class="kicker" id="m-tag"></div>
+  <h1 id="m-name"></h1>
+  <div class="en" id="m-en"></div>
+</header>
+
+<nav class="menu"><ul>
+  <li><a href="#sermons">설교</a></li>
+  <li><a href="#shorts">쇼츠</a></li>
+  <li><a href="#letters">목회서신</a></li>
+  <li><a href="#essays">영화 vs 영화</a></li>
+  <li><a href="#church-news">교회 소식</a></li>
+  <li><a href="#denom-news">교단 소식</a></li>
+  <li><a href="#about">교회 소개</a></li>
+</ul></nav>
+
+<main>
+<!-- HERO: latest sermon -->
+<section id="latest"><div class="wrap hero">
+  <div class="player"><iframe id="hero-player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+  <div class="hero-txt">
+    <div class="label">이번 주 설교</div>
+    <h3 id="hero-title">최근 설교</h3>
+    <p id="hero-desc">평화의교회 주일설교. 재생 버튼을 누르면 가장 최근 설교부터 이어서 들으실 수 있습니다.</p>
+    <div class="meta" id="hero-meta"></div>
+    <a class="btn red" id="yt-link" target="_blank" rel="noopener">유튜브 채널 구독</a>
+    <a class="btn" href="#letters">목회서신 읽기</a>
+  </div>
+</div></section>
+
+<!-- SERMONS -->
+<section id="sermons"><div class="wrap">
+  <div class="sec-head"><h2><small>SERMONS</small>최근 설교</h2><a class="more" id="all-sermons" target="_blank" rel="noopener">전체 설교 보기 →</a></div>
+  <div class="grid" id="sermon-grid"></div>
+</div></section>
+
+<!-- SHORTS -->
+<section id="shorts" class="shorts-band"><div class="wrap">
+  <div class="sec-head"><h2><small>SHORTS</small>2분 설교, 쇼츠</h2><a class="more" id="all-shorts" target="_blank" rel="noopener">쇼츠 전체 보기 →</a></div>
+  <div class="srow" id="shorts-row"></div>
+</div></section>
+
+<!-- LETTERS + NEWS -->
+<section id="letters"><div class="wrap two">
+  <div>
+    <div class="sec-head"><h2><small>PASTORAL LETTER</small><span id="letters-h"></span></h2></div>
+    <div id="letters-list"></div>
+  </div>
+  <aside>
+    <div class="side-block" id="church-news">
+      <h3 class="side-h">교회 소식 · CHURCH NEWS</h3>
+      <ul class="news-list" id="church-news-list"></ul>
+    </div>
+    <div class="side-block" id="denom-news">
+      <h3 class="side-h">교단 소식 · PC(USA)</h3>
+      <ul class="news-list" id="denom-news-list"></ul>
+    </div>
+  </aside>
+</div></section>
+
+<!-- FILM ESSAYS -->
+<section id="essays" class="essay-band"><div class="wrap">
+  <div class="sec-head"><h2><small>FILM ESSAY</small>김기대의 영화 vs 영화</h2><span class="more" style="border:0;color:var(--ink-3)">코리아타운데일리 연재</span></div>
+  <div class="egrid" id="essay-grid"></div>
+  <div style="text-align:center;margin-top:26px"><a class="btn" href="#" id="essay-more" onclick="showAllEssays();return false">에세이 전체 목록 →</a></div>
+</div></section>
+
+<!-- ABOUT -->
+<section id="about"><div class="wrap about">
+  <div>
+    <div class="sec-head"><h2><small>ABOUT</small>평화의교회</h2></div>
+    <p>평화의교회는 미국장로교(PCUSA)의 전통에 따라 합리적이고 미래 지향적인 목회를 추구하는 교회입니다. 1975년 코리아타운에서 이민교회로 시작했고, 신앙과 실천이 조화를 이루는 공동체를 꿈꿉니다.</p>
+    <p>Church of Peace is a Korean American Presbyterian (PCUSA) church in Los Angeles seeking a harmonious relationship between faith and practice.</p>
+  </div>
+  <dl class="info">
+    <dt>담임목사</dt><dd id="i-pastor"></dd>
+    <dt>예배</dt><dd id="i-worship"></dd>
+    <dt>주소</dt><dd id="i-address"></dd>
+    <dt>연락</dt><dd id="i-contact"></dd>
+  </dl>
+</div></section>
+</main>
+
+<footer><div class="mark">평화의교회</div><div>© <span id="yr"></span> Church of Peace, Los Angeles · PC(USA)</div></footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><span class="x" onclick="closeModal()">×</span><div id="modal-body"></div></div>
+
+<script src="content.js"></script>
+<script src="essays.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const id=SITE.youtubeChannelId.slice(2);
+const PL={long:"UULF"+id, shorts:"UUSH"+id};
+const fmt=d=>{const x=new Date(d);return isNaN(x)?d:x.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric"})};
+
+/* masthead & info */
+$("#m-tag").textContent=SITE.tagline; $("#m-name").textContent=SITE.churchNameKo; $("#m-en").textContent=SITE.churchNameEn;
+$("#top-date").textContent=new Date().toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
+$("#yr").textContent=new Date().getFullYear();
+$("#i-pastor").textContent=SITE.pastor; $("#i-worship").textContent=SITE.worship; $("#i-address").textContent=SITE.address; $("#i-contact").textContent=SITE.contact;
+$("#yt-link").href="https://www.youtube.com/"+SITE.youtubeHandle+"?sub_confirmation=1";
+$("#all-sermons").href="https://www.youtube.com/playlist?list="+PL.long;
+$("#all-shorts").href="https://www.youtube.com/playlist?list="+PL.shorts;
+$("#hero-player").src="https://www.youtube.com/embed/videoseries?list="+PL.long+"&rel=0";
+$("#letters-h").textContent=SITE.pastor+"의 목회서신";
+
+/* modal */
+function openVideo(v,vertical){$("#modal-body").innerHTML=`<div class="box ${vertical?"v":""}"><iframe src="https://www.youtube.com/embed/${v}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;$("#modal").classList.add("on");}
+function openLetter(i){const L=LETTERS[i];const paras=L.body.trim().split(/\n\s*\n/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join("");
+  $("#modal-body").innerHTML=`<div class="article"><div class="date">${fmt(L.date)}</div><h2>${esc(L.title)}</h2>${paras}<div class="byline">${esc(SITE.pastor)} · ${esc(SITE.churchNameKo)}</div></div>`;$("#modal").classList.add("on");}
+function closeModal(){$("#modal").classList.remove("on");$("#modal-body").innerHTML="";}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+/* letters & news from content.js */
+$("#i-address").innerHTML=`<a href="https://maps.google.com/?q=${encodeURIComponent(SITE.address)}" target="_blank" rel="noopener" style="text-decoration:underline">${esc(SITE.address)}</a>`;
+$("#letters-list").innerHTML=LETTERS.length?"":`<div class="fallback">목회서신이 곧 올라옵니다.</div>`;
+$("#letters-list").innerHTML+=LETTERS.map((L,i)=>{const ex=L.body.trim().split(/\n\s*\n/)[0].slice(0,150);
+  return `<article class="letter"><div class="date">${fmt(L.date)}</div><h3><a href="#" onclick="openLetter(${i});return false">${esc(L.title)}</a></h3><div class="excerpt">${esc(ex)}${L.body.length>150?"…":""}</div><a class="read" href="#" onclick="openLetter(${i});return false">전문 읽기 →</a></article>`}).join("");
+const newsItem=n=>`<li>${n.link?`<a href="${esc(n.link)}" target="_blank" rel="noopener">`:""}<div class="date">${fmt(n.date)}</div><h4>${esc(n.title)}</h4><p>${esc(n.body||"")}</p>${n.link?"</a>":""}</li>`;
+$("#church-news-list").innerHTML=CHURCH_NEWS.length?CHURCH_NEWS.map(newsItem).join(""):`<li><p>${esc(SITE.worship)} · ${esc(SITE.address)}</p><p style="margin-top:6px">새 소식은 이곳에 올라옵니다.</p></li>`;
+$("#denom-news-list").innerHTML=DENOM_NEWS.map(newsItem).join("");
+
+/* film essays */
+const vsHtml=f=>{const m=String(f||"").split(/\s+vs\.?\s+/i);return m.length===2?`${esc(m[0])}<b>vs</b>${esc(m[1])}`:esc(f||"")};
+function openEssay(i){const E=ESSAYS[i];const paras=E.body.trim().split(/\n\s*\n/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join("");
+  $("#modal-body").innerHTML=`<div class="article"><div class="date">${fmt(E.date)} · 영화 vs 영화</div><h2>${esc(E.title)}</h2><div class="src" style="margin:-8px 0 20px">${vsHtml(E.films)}</div>${paras}<div class="byline">김기대 · 코리아타운데일리 연재${E.source?` · <span class="src"><a href="${esc(E.source)}" target="_blank" rel="noopener">원문 보기</a></span>`:""}</div></div>`;$("#modal").classList.add("on");}
+$("#essay-grid").innerHTML=ESSAYS.slice(0,6).map((E,i)=>`<div class="ecard" onclick="openEssay(${i})"><div class="vs">${vsHtml(E.films)}</div><h3>${esc(E.title)}</h3><p>${esc(E.body.trim().split(/\n\s*\n/)[0])}</p><div class="date">${fmt(E.date)}</div></div>`).join("");
+if(ESSAYS.length<=6)$("#essay-more").style.display="none";
+function showAllEssays(){$("#modal-body").innerHTML=`<div class="article"><div class="date">FILM ESSAY</div><h2>김기대의 영화 vs 영화 — 전체 목록</h2><ul class="elist">${ESSAYS.map((E,i)=>`<li onclick="openEssay(${i})"><span class="d">${fmt(E.date)}</span><div><h4>${esc(E.title)}</h4><div class="f">${vsHtml(E.films)}</div></div></li>`).join("")}</ul></div>`;$("#modal").classList.add("on");}
+
+/* YouTube feeds (auto-updating) */
+async function feed(playlist){
+  const rss="https://www.youtube.com/feeds/videos.xml?playlist_id="+playlist;
+  const r=await fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(rss));
+  const j=await r.json(); if(j.status!=="ok")throw 0; return j.items;
+}
+const vid=it=>(it.link.match(/v=([\w-]{11})/)||it.guid.match(/([\w-]{11})$/)||[])[1];
+feed(PL.long).then(items=>{
+  const list=items.slice(0,12);
+  $("#sermon-grid").innerHTML=list.map(it=>`<div class="card" onclick="openVideo('${vid(it)}')"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${vid(it)}/hqdefault.jpg" alt=""></div><h4>${esc(it.title)}</h4><div class="date">${fmt(it.pubDate)}</div></div>`).join("");
+  const h=items[0]; if(h){$("#hero-title").textContent=h.title;$("#hero-meta").textContent=fmt(h.pubDate)+" · "+SITE.pastor;}
+}).catch(()=>{
+  $("#sermon-grid").innerHTML=`<div class="fallback" style="grid-column:1/-1">설교 목록은 위 플레이어의 재생목록 버튼(☰)이나 <a href="${$("#all-sermons").href}" target="_blank"><u>전체 설교 보기</u></a>에서 확인하실 수 있습니다.</div>`;
+});
+feed(PL.shorts).then(items=>{
+  $("#shorts-row").innerHTML=items.slice(0,15).map(it=>`<div class="short" onclick="openVideo('${vid(it)}',true)"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${vid(it)}/oar2.jpg" onerror="this.src='https://i.ytimg.com/vi/${vid(it)}/hqdefault.jpg'" alt=""></div><h4>${esc(it.title)}</h4></div>`).join("");
+}).catch(()=>{
+  $("#shorts-row").innerHTML=`<div class="shorts-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=${PL.shorts}&rel=0" allowfullscreen></iframe></div>`;
+});
+
+/* PC(USA) news (auto) — prepended to 교단 소식 */
+(async()=>{
+  for(const url of ["https://www.presbyterianmission.org/news/feed/","https://www.presbyterianmission.org/feed/"]){
+    try{const r=await fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(url));const j=await r.json();
+      if(j.status==="ok"&&j.items.length){$("#denom-news-list").insertAdjacentHTML("afterbegin",j.items.slice(0,4).map(it=>newsItem({date:it.pubDate,title:it.title,body:(it.description||"").replace(/<[^>]+>/g,"").slice(0,110)+"…",link:it.link})).join(""));return;}
+    }catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
