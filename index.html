@@ -244,6 +244,7 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 
 <script src="content.js"></script>
 <script src="essays.js"></script>
+<script src="videos.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -257,9 +258,6 @@ $("#top-date").textContent=new Date().toLocaleDateString("ko-KR",{year:"numeric"
 $("#yr").textContent=new Date().getFullYear();
 $("#i-pastor").textContent=SITE.pastor; $("#i-worship").textContent=SITE.worship; $("#i-address").textContent=SITE.address; $("#i-contact").textContent=SITE.contact;
 $("#yt-link").href="https://www.youtube.com/"+SITE.youtubeHandle+"?sub_confirmation=1";
-$("#all-sermons").href="https://www.youtube.com/playlist?list="+PL.long;
-$("#all-shorts").href="https://www.youtube.com/playlist?list="+PL.shorts;
-$("#hero-player").src="https://www.youtube.com/embed/videoseries?list="+PL.long+"&rel=0";
 $("#letters-h").textContent=SITE.pastor+"의 목회서신";
 
 /* modal */
@@ -276,7 +274,7 @@ $("#letters-list").innerHTML+=LETTERS.map((L,i)=>{const ex=L.body.trim().split(/
   return `<article class="letter"><div class="date">${fmt(L.date)}</div><h3><a href="#" onclick="openLetter(${i});return false">${esc(L.title)}</a></h3><div class="excerpt">${esc(ex)}${L.body.length>150?"…":""}</div><a class="read" href="#" onclick="openLetter(${i});return false">전문 읽기 →</a></article>`}).join("");
 const newsItem=n=>`<li>${n.link?`<a href="${esc(n.link)}" target="_blank" rel="noopener">`:""}<div class="date">${fmt(n.date)}</div><h4>${esc(n.title)}</h4><p>${esc(n.body||"")}</p>${n.link?"</a>":""}</li>`;
 $("#church-news-list").innerHTML=CHURCH_NEWS.length?CHURCH_NEWS.map(newsItem).join(""):`<li><p>${esc(SITE.worship)} · ${esc(SITE.address)}</p><p style="margin-top:6px">새 소식은 이곳에 올라옵니다.</p></li>`;
-$("#denom-news-list").innerHTML=DENOM_NEWS.map(newsItem).join("");
+$("#denom-news-list").innerHTML=DENOM_NEWS.length?DENOM_NEWS.map(newsItem).join(""):`<li><p>교단 소식은 <a href="https://www.pcusa.org/news" target="_blank" rel="noopener" style="text-decoration:underline">PC(USA) 뉴스</a>에서 보실 수 있습니다.</p></li>`;
 
 /* film essays */
 const vsHtml=f=>{const m=String(f||"").split(/\s+vs\.?\s+/i);return m.length===2?`${esc(m[0])}<b>vs</b>${esc(m[1])}`:esc(f||"")};
@@ -286,25 +284,13 @@ $("#essay-grid").innerHTML=ESSAYS.slice(0,6).map((E,i)=>`<div class="ecard" oncl
 if(ESSAYS.length<=6)$("#essay-more").style.display="none";
 function showAllEssays(){$("#modal-body").innerHTML=`<div class="article"><div class="date">FILM ESSAY</div><h2>김기대의 영화 vs 영화 — 전체 목록</h2><ul class="elist">${ESSAYS.map((E,i)=>`<li onclick="openEssay(${i})"><span class="d">${fmt(E.date)}</span><div><h4>${esc(E.title)}</h4><div class="f">${vsHtml(E.films)}</div></div></li>`).join("")}</ul></div>`;$("#modal").classList.add("on");}
 
-/* YouTube feeds (auto-updating) */
-async function feed(playlist){
-  const rss="https://www.youtube.com/feeds/videos.xml?playlist_id="+playlist;
-  const r=await fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(rss));
-  const j=await r.json(); if(j.status!=="ok")throw 0; return j.items;
-}
-const vid=it=>(it.link.match(/v=([\w-]{11})/)||it.guid.match(/([\w-]{11})$/)||[])[1];
-feed(PL.long).then(items=>{
-  const list=items.slice(0,12);
-  $("#sermon-grid").innerHTML=list.map(it=>`<div class="card" onclick="openVideo('${vid(it)}')"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${vid(it)}/hqdefault.jpg" alt=""></div><h4>${esc(it.title)}</h4><div class="date">${fmt(it.pubDate)}</div></div>`).join("");
-  const h=items[0]; if(h){$("#hero-title").textContent=h.title;$("#hero-meta").textContent=fmt(h.pubDate)+" · "+SITE.pastor;}
-}).catch(()=>{
-  $("#sermon-grid").innerHTML=`<div class="fallback" style="grid-column:1/-1">설교 목록은 위 플레이어의 재생목록 버튼(☰)이나 <a href="${$("#all-sermons").href}" target="_blank"><u>전체 설교 보기</u></a>에서 확인하실 수 있습니다.</div>`;
-});
-feed(PL.shorts).then(items=>{
-  $("#shorts-row").innerHTML=items.slice(0,15).map(it=>`<div class="short" onclick="openVideo('${vid(it)}',true)"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${vid(it)}/oar2.jpg" onerror="this.src='https://i.ytimg.com/vi/${vid(it)}/hqdefault.jpg'" alt=""></div><h4>${esc(it.title)}</h4></div>`).join("");
-}).catch(()=>{
-  $("#shorts-row").innerHTML=`<div class="shorts-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=${PL.shorts}&rel=0" allowfullscreen></iframe></div>`;
-});
+/* sermons & shorts (from videos.js) */
+$("#hero-player").src="https://www.youtube.com/embed/"+SERMONS[0].id+"?rel=0";
+$("#hero-title").textContent=SERMONS[0].title;$("#hero-meta").textContent=fmt(SERMONS[0].date)+" · "+SITE.pastor;
+$("#sermon-grid").innerHTML=SERMONS.slice(0,12).map(v=>`<div class="card" onclick="openVideo('${v.id}')"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt=""></div><h4>${esc(v.title)}</h4><div class="date">${fmt(v.date)}${v.len?" · "+v.len:""}</div></div>`).join("");
+$("#shorts-row").innerHTML=SHORTS.slice(0,18).map(v=>`<div class="short" onclick="openVideo('${v.id}',true)"><div class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/${v.id}/oar2.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'" alt=""></div><h4>${esc(v.title)}</h4></div>`).join("");
+$("#all-sermons").href="https://www.youtube.com/"+SITE.youtubeHandle+"/streams";
+$("#all-shorts").href="https://www.youtube.com/"+SITE.youtubeHandle+"/shorts";
 
 /* PC(USA) news (auto) — prepended to 교단 소식 */
 (async()=>{
