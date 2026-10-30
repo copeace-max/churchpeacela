@@ -130,6 +130,10 @@ section{padding:48px 0;border-bottom:1px solid var(--rule)}
 .hist article h3{font-family:var(--serif);font-size:22px;margin:0 0 10px}
 .hist article p{font-size:16px;line-height:1.85;color:var(--ink-2);margin:0 0 1em}
 .hist .more-btn{font-size:14px;font-weight:600;color:var(--accent-3);cursor:pointer}
+.tl .era{font-family:var(--serif);font-size:19px;font-weight:700;margin:26px 0 8px;color:var(--accent-3)}
+.tl table{width:100%;border-collapse:collapse;font-size:14.5px}
+.tl td{padding:6px 8px 6px 0;vertical-align:top;border-top:1px solid var(--rule);color:var(--ink-2)}
+.tl td.d{white-space:nowrap;width:150px;color:var(--ink-3);font-size:13px}
 .giving{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
 .gbox{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:26px}
 .gbox h3{font-family:var(--serif);font-size:20px;margin:0 0 10px}
@@ -140,7 +144,9 @@ section{padding:48px 0;border-bottom:1px solid var(--rule)}
 @media(max-width:900px){.giving{grid-template-columns:1fr}}
 
 /* about + footer */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.greet{margin-top:26px}
+.greet p{font-size:16px;line-height:1.85}
 .about p{font-size:17px;line-height:1.8;color:var(--ink-2)}
 .about .info{background:var(--paper-2);padding:26px;border-radius:6px;font-size:15px}
 .about .info dt{font-size:12px;letter-spacing:.2em;color:var(--ink-3);margin-top:12px}
@@ -248,6 +254,8 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
   <div class="hist">
     <div class="toc" id="hist-toc"></div>
     <div id="hist-list"></div>
+    <h3 class="side-h" style="margin-top:44px;font-size:14px">교회 약사 · TIMELINE</h3>
+    <div class="tl" id="timeline"></div>
   </div>
 </div></section>
 
@@ -276,6 +284,10 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
     <div class="sec-head"><h2><small>ABOUT</small>평화의교회</h2></div>
     <p>평화의교회는 미국장로교(PCUSA)의 전통에 따라 합리적이고 미래 지향적인 목회를 추구하는 교회입니다. 1975년 코리아타운에서 이민교회로 시작했고, 신앙과 실천이 조화를 이루는 공동체를 꿈꿉니다.</p>
     <p>Church of Peace is a Korean American Presbyterian (PCUSA) church in Los Angeles seeking a harmonious relationship between faith and practice.</p>
+    <div class="greet" id="greeting">
+      <h3 class="side-h" style="color:var(--accent)">담임목사 인사말 · GREETING</h3>
+      <div id="greeting-body"></div>
+    </div>
   </div>
   <dl class="info">
     <dt>담임목사</dt><dd id="i-pastor"></dd>
@@ -290,7 +302,7 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><span class="x" onclick="closeModal()">×</span><div id="modal-body"></div></div>
 
-<script src="content.js?v=3"></script>
+<script src="content.js?v=4"></script>
 <script src="essays.js?v=3"></script>
 <script src="videos.js?v=3"></script>
 <script>
@@ -331,6 +343,16 @@ function openEssay(i){const E=ESSAYS[i];const paras=E.body.trim().split(/\n\s*\n
 $("#essay-grid").innerHTML=ESSAYS.slice(0,6).map((E,i)=>`<div class="ecard" onclick="openEssay(${i})"><div class="vs">${vsHtml(E.films)}</div><h3>${esc(E.title)}</h3><p>${esc(E.body.trim().split(/\n\s*\n/)[0])}</p><div class="date">${fmt(E.date)}</div></div>`).join("");
 if(ESSAYS.length<=6)$("#essay-more").style.display="none";
 function showAllEssays(){$("#modal-body").innerHTML=`<div class="article"><div class="date">FILM ESSAY</div><h2>김기대의 영화 vs 영화 — 전체 목록</h2><ul class="elist">${ESSAYS.map((E,i)=>`<li onclick="openEssay(${i})"><span class="d">${fmt(E.date)}</span><div><h4>${esc(E.title)}</h4><div class="f">${vsHtml(E.films)}</div></div></li>`).join("")}</ul></div>`;$("#modal").classList.add("on");}
+
+/* pastor greeting (inside 교회 소개) */
+if(typeof GREETING!=="undefined"&&GREETING.body&&GREETING.body.trim()){
+  $("#greeting-body").innerHTML=`${GREETING.title?`<h4 style="font-family:var(--serif);font-size:20px;margin:0 0 8px">${esc(GREETING.title)}</h4>`:""}${GREETING.body.trim().split(/\n\s*\n/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join("")}<p style="text-align:right;font-weight:600;color:var(--ink)">${esc(SITE.pastor)}</p>`;
+}else{$("#greeting-body").innerHTML=`<div class="fallback">담임목사 인사말이 곧 올라옵니다.</div>`}
+
+/* church timeline (교회 약사) */
+if(typeof TIMELINE!=="undefined"&&TIMELINE.length){
+  $("#timeline").innerHTML=TIMELINE.map(e=>`<div class="era">${esc(e.era)}</div><table>${e.items.map(it=>`<tr><td class="d">${esc(it.date)}</td><td>${esc(it.text)}</td></tr>`).join("")}</table>`).join("");
+}
 
 /* church history (from content.js) */
 if(typeof HISTORY!=="undefined"&&HISTORY.length){
