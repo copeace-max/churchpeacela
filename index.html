@@ -155,6 +155,9 @@ section{padding:48px 0;border-bottom:1px solid var(--rule)}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 .greet{margin-top:26px}
 .greet p{font-size:16px;line-height:1.85}
+.gphoto{margin:0 0 20px}
+.gphoto img{width:100%;aspect-ratio:2/1;object-fit:cover;object-position:50% 68%;border-radius:8px}
+.gphoto figcaption{font-size:12px;color:var(--ink-3);margin-top:6px;text-align:right}
 .about p{font-size:17px;line-height:1.8;color:var(--ink-2)}
 .about .info{background:var(--paper-2);padding:26px;border-radius:6px;font-size:15px}
 .about .info dt{font-size:12px;letter-spacing:.2em;color:var(--ink-3);margin-top:12px}
@@ -312,6 +315,7 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
     <p>Church of Peace is a Korean American Presbyterian (PCUSA) church in Los Angeles seeking a harmonious relationship between faith and practice.</p>
     <div class="greet" id="greeting">
       <h3 class="side-h" style="color:var(--accent)">담임목사 인사말 · GREETING</h3>
+      <figure class="gphoto"><img src="image.jpg" alt="김기대 목사 가족"><figcaption>김기대 목사와 가족</figcaption></figure>
       <div id="greeting-body"></div>
     </div>
   </div>
