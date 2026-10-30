@@ -121,6 +121,24 @@ section{padding:48px 0;border-bottom:1px solid var(--rule)}
 .article .src a{color:var(--accent-3);text-decoration:underline}
 @media(max-width:900px){.egrid{grid-template-columns:1fr}}
 
+/* history + giving */
+.hist{max-width:820px}
+.hist .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.hist .toc a{font-size:13px;padding:6px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--paper)}
+.hist .toc a:hover{border-color:var(--accent);color:var(--accent)}
+.hist article{padding:22px 0;border-top:1px solid var(--rule)}
+.hist article h3{font-family:var(--serif);font-size:22px;margin:0 0 10px}
+.hist article p{font-size:16px;line-height:1.85;color:var(--ink-2);margin:0 0 1em}
+.hist .more-btn{font-size:14px;font-weight:600;color:var(--accent-3);cursor:pointer}
+.giving{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.gbox{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:26px}
+.gbox h3{font-family:var(--serif);font-size:20px;margin:0 0 10px}
+.gbox p{font-size:15px;color:var(--ink-2);margin:0 0 10px}
+.gbtn{display:block;text-align:center;padding:14px;border-radius:8px;font-weight:700;font-size:16px;margin-top:12px;color:#fff}
+.gbtn.pp{background:#0070ba}.gbtn.vm{background:#008cff}
+.gbox ul{margin:8px 0 0;padding-left:18px;font-size:15px;color:var(--ink-2)}
+@media(max-width:900px){.giving{grid-template-columns:1fr}}
+
 /* about + footer */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .about p{font-size:17px;line-height:1.8;color:var(--ink-2)}
@@ -168,6 +186,8 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
   <li><a href="#essays">영화 vs 영화</a></li>
   <li><a href="#church-news">교회 소식</a></li>
   <li><a href="#denom-news">교단 소식</a></li>
+  <li><a href="#history">교회 연혁</a></li>
+  <li><a href="#giving">온라인 기부</a></li>
   <li><a href="#about">교회 소개</a></li>
 </ul></nav>
 
@@ -222,6 +242,34 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
   <div style="text-align:center;margin-top:26px"><a class="btn" href="#" id="essay-more" onclick="showAllEssays();return false">에세이 전체 목록 →</a></div>
 </div></section>
 
+<!-- HISTORY -->
+<section id="history"><div class="wrap">
+  <div class="sec-head"><h2><small>HISTORY</small>교회 연혁 — 평화의교회 40년사</h2></div>
+  <div class="hist">
+    <div class="toc" id="hist-toc"></div>
+    <div id="hist-list"></div>
+  </div>
+</div></section>
+
+<!-- GIVING -->
+<section id="giving" class="essay-band"><div class="wrap">
+  <div class="sec-head"><h2><small>GIVING</small>온라인 기부</h2></div>
+  <div class="giving">
+    <div class="gbox">
+      <h3>헌금과 후원</h3>
+      <p>교회 헌금(십일조·감사헌금)과 후원금을 온라인으로 드리실 수 있습니다. PayPal 또는 Venmo를 통해 신용카드나 연결된 은행 계좌로 결제되며, 기부 내역은 교회 행정에 자동 기록되고 이메일 영수증을 받으실 수 있습니다.</p>
+      <p>지정헌금을 원하시면 다음 중 하나를 메모란에 적어 주세요.</p>
+      <ul><li>노숙자 지원</li><li>통일과 사회정의 사역</li><li>학술·문화 사역</li></ul>
+    </div>
+    <div class="gbox">
+      <h3>기부 방법</h3>
+      <a class="gbtn pp" href="https://paypal.me/churchpeace" target="_blank" rel="noopener">PayPal로 기부하기</a>
+      <a class="gbtn vm" href="https://venmo.com/ChurchofPeace" target="_blank" rel="noopener">Venmo로 기부하기 — @ChurchofPeace</a>
+      <p style="margin-top:14px;font-size:13px;color:var(--ink-3)">Venmo는 스마트폰 앱(iPhone·Android)에서만 송금이 가능합니다. 컴퓨터에서는 거래 내역만 볼 수 있습니다.</p>
+    </div>
+  </div>
+</div></section>
+
 <!-- ABOUT -->
 <section id="about"><div class="wrap about">
   <div>
@@ -242,9 +290,9 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><span class="x" onclick="closeModal()">×</span><div id="modal-body"></div></div>
 
-<script src="content.js?v=2"></script>
-<script src="essays.js?v=2"></script>
-<script src="videos.js?v=2"></script>
+<script src="content.js?v=3"></script>
+<script src="essays.js?v=3"></script>
+<script src="videos.js?v=3"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -283,6 +331,13 @@ function openEssay(i){const E=ESSAYS[i];const paras=E.body.trim().split(/\n\s*\n
 $("#essay-grid").innerHTML=ESSAYS.slice(0,6).map((E,i)=>`<div class="ecard" onclick="openEssay(${i})"><div class="vs">${vsHtml(E.films)}</div><h3>${esc(E.title)}</h3><p>${esc(E.body.trim().split(/\n\s*\n/)[0])}</p><div class="date">${fmt(E.date)}</div></div>`).join("");
 if(ESSAYS.length<=6)$("#essay-more").style.display="none";
 function showAllEssays(){$("#modal-body").innerHTML=`<div class="article"><div class="date">FILM ESSAY</div><h2>김기대의 영화 vs 영화 — 전체 목록</h2><ul class="elist">${ESSAYS.map((E,i)=>`<li onclick="openEssay(${i})"><span class="d">${fmt(E.date)}</span><div><h4>${esc(E.title)}</h4><div class="f">${vsHtml(E.films)}</div></div></li>`).join("")}</ul></div>`;$("#modal").classList.add("on");}
+
+/* church history (from content.js) */
+if(typeof HISTORY!=="undefined"&&HISTORY.length){
+  $("#hist-toc").innerHTML=HISTORY.map((c,i)=>`<a href="#h${i}">${esc(c.title)}</a>`).join("");
+  $("#hist-list").innerHTML=HISTORY.map((c,i)=>{const ps=c.body.trim().split(/\n\s*\n/);const first=ps.slice(0,2).map(p=>`<p>${esc(p)}</p>`).join("");const rest=ps.slice(2).map(p=>`<p>${esc(p)}</p>`).join("");
+    return `<article id="h${i}"><h3>${esc(c.title)}</h3>${first}${rest?`<div class="hist-rest" style="display:none">${rest}</div><span class="more-btn" onclick="const r=this.previousElementSibling;const o=r.style.display==='none';r.style.display=o?'block':'none';this.textContent=o?'접기 ↑':'더 읽기 ↓'">더 읽기 ↓</span>`:""}</article>`}).join("");
+}else{$("#hist-list").innerHTML=`<div class="fallback">연혁이 곧 올라옵니다.</div>`}
 
 /* sermons & shorts (from videos.js) */
 $("#hero-player").src="https://www.youtube.com/embed/"+SERMONS[0].id+"?rel=0";
