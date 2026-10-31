@@ -8,6 +8,15 @@
 <meta property="og:title" content="평화의교회 · 십자가 켜고 좌회전">
 <meta property="og:description" content="설교 · 쇼츠 · 목회서신 · 교회 소식 — 평화의교회 웹진">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://churchpeacela.org/">
+<meta property="og:image" content="https://churchpeacela.org/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="평화의교회 Church of Peace">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://churchpeacela.org/og-image.jpg">
+<link rel="icon" href="og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -127,6 +136,21 @@ section{padding:48px 0;border-bottom:1px solid var(--rule)}
 .chips a.on,.chips a:hover{border-color:var(--accent-2);background:var(--accent-2);color:#fff}
 .card .ser{font-size:11px;letter-spacing:.1em;color:var(--accent-2);font-weight:700;margin-top:8px}
 
+/* photos + bulletin */
+.pcard{cursor:pointer}
+.pcard .thumb{aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:var(--paper)}
+.pcard .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.pcard:hover .thumb img{transform:scale(1.04)}
+.pcard h4{font-family:var(--serif);font-size:16px;line-height:1.4;margin:10px 0 4px;font-weight:600}
+.pcard .date{font-size:12px;color:var(--ink-3)}
+.bul{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center;cursor:pointer;padding-bottom:16px;margin-bottom:4px;border-bottom:1px solid var(--rule)}
+.bul img{width:92px;border:1px solid var(--rule);border-radius:4px;background:#fff}
+.bul h4{margin:3px 0 4px;font-size:15px;font-family:var(--serif);line-height:1.35}
+.bul .read{font-size:13px;font-weight:600;color:var(--accent-3)}
+.blist li{cursor:pointer}
+.article.gal{width:min(1040px,100%);padding:30px 30px 20px}
+.gal img{width:100%;margin:0 0 14px;border:1px solid var(--rule);border-radius:4px;background:#fff}
+
 /* history + giving */
 .hist{max-width:820px}
 .hist .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
@@ -202,6 +226,7 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
   <li><a href="#letters">목회서신</a></li>
   <li><a href="#essays">영화 vs 영화</a></li>
   <li><a href="#seodang">평화서당</a></li>
+  <li><a href="#album">교회 사진첩</a></li>
   <li><a href="#church-news">교회 소식</a></li>
   <li><a href="#denom-news">교단 소식</a></li>
   <li><a href="#history">교회 연혁</a></li>
@@ -244,6 +269,7 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
   <aside>
     <div class="side-block" id="church-news">
       <h3 class="side-h">교회 소식 · CHURCH NEWS</h3>
+      <div id="bulletin"></div>
       <ul class="news-list" id="church-news-list"></ul>
     </div>
     <div class="side-block" id="denom-news">
@@ -266,6 +292,12 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
   <div class="chips" id="lec-chips"></div>
   <div class="grid" id="lec-grid"></div>
   <div style="text-align:center;margin-top:22px"><a class="btn" href="#" id="lec-more" onclick="lecMore();return false">더 보기 ↓</a></div>
+</div></section>
+
+<!-- ALBUM -->
+<section id="album" class="essay-band"><div class="wrap">
+  <div class="sec-head"><h2><small>PHOTOS</small>교회 사진첩</h2><a class="more" id="fb-link" target="_blank" rel="noopener">페이스북에서 더 보기 →</a></div>
+  <div class="grid" id="album-grid"></div>
 </div></section>
 
 <!-- HISTORY -->
@@ -336,6 +368,7 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 <script src="essays.js?v=3"></script>
 <script src="videos.js?v=3"></script>
 <script src="lectures.js?v=1"></script>
+<script src="photos.js?v=1"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -387,6 +420,23 @@ if(typeof LECTURES!=="undefined"){const cnt={};LECTURES.forEach(v=>{if(v.series)
   $("#lec-chips").innerHTML=`<a class="on" onclick="lecSet('',this)">전체 (${LECTURES.length})</a>`+ser.map(k=>`<a onclick="lecSet('${k.replace(/'/g,"\\'")}',this)">${esc(k)} (${cnt[k]})</a>`).join("");
   lecRender();}
 function showAllLectures(){const L=typeof LECTURES==="undefined"?[]:LECTURES;$("#modal-body").innerHTML=`<div class="article"><div class="date">PEACE STUDY GROUP</div><h2>평화서당 — 전체 강좌 목록 (${L.length})</h2><ul class="elist">${L.map(v=>`<li onclick="openVideo('${v.id}')"><span class="d">${v.date?fmt(v.date):""}</span><div><h4>${esc(v.title)}</h4><div class="f">${esc(v.series||"")}</div></div></li>`).join("")}</ul></div>`;$("#modal").classList.add("on");}
+
+/* 주보 & 교회 사진첩 (from photos.js) */
+function openPages(pages,title,sub){
+  $("#modal-body").innerHTML=`<div class="article gal"><div class="date">${esc(sub||"")}</div><h2>${esc(title)}</h2>${pages.map(p=>`<img src="${esc(p)}" alt="">`).join("")}</div>`;
+  $("#modal").classList.add("on");
+}
+function openBul(i){const b=BULLETINS[i];openPages(b.pages,b.title,"주보 · BULLETIN");}
+function openAlbum(i){const a=ALBUMS[i];openPages(a.photos,a.title,a.date?fmt(a.date):"교회 사진첩");}
+if(typeof BULLETINS!=="undefined"&&BULLETINS.length){
+  const b=BULLETINS[0];
+  $("#bulletin").innerHTML=`<div class="bul" onclick="openBul(0)"><img loading="lazy" src="${esc(b.pages[0])}" alt=""><div><div class="date">${fmt(b.date)}</div><h4>${esc(b.title)}</h4><span class="read">주보 보기 →</span></div></div>`
+    +(BULLETINS.length>1?`<ul class="news-list blist">${BULLETINS.slice(1,6).map((x,i)=>`<li onclick="openBul(${i+1})"><div class="date">${fmt(x.date)}</div><h4>${esc(x.title)}</h4></li>`).join("")}</ul>`:"");
+}
+if(typeof FACEBOOK_URL!=="undefined")$("#fb-link").href=FACEBOOK_URL;
+if(typeof ALBUMS!=="undefined"&&ALBUMS.length){
+  $("#album-grid").innerHTML=ALBUMS.map((a,i)=>`<div class="pcard" onclick="openAlbum(${i})"><div class="thumb"><img loading="lazy" src="${esc(a.photos[0])}" alt=""></div><h4>${esc(a.title)}</h4><div class="date">${a.date?fmt(a.date)+" · ":""}사진 ${a.photos.length}장</div></div>`).join("");
+}else{$("#album-grid").innerHTML=`<div class="fallback">사진이 곧 올라옵니다.</div>`}
 
 /* pastor greeting (inside 교회 소개) */
 if(typeof GREETING!=="undefined"&&GREETING.body&&GREETING.body.trim()){
