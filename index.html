@@ -150,6 +150,24 @@ section{padding:48px 0;border-bottom:1px solid var(--rule)}
 .blist li{cursor:pointer}
 .article.gal{width:min(1040px,100%);padding:30px 30px 20px}
 .gal img{width:100%;margin:0 0 14px;border:1px solid var(--rule);border-radius:4px;background:#fff}
+#photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.ph{aspect-ratio:1/1;overflow:hidden;border-radius:4px;background:var(--paper);cursor:pointer;border:1px solid var(--rule)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s,opacity .35s;opacity:0}
+.ph img.in{opacity:1}
+.ph:hover img{transform:scale(1.06)}
+.more-wrap{text-align:center;margin-top:24px}
+.btn-more{font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);padding:10px 24px;border:1px solid var(--rule);border-radius:999px;background:var(--paper);cursor:pointer}
+.btn-more:hover{border-color:var(--accent);color:var(--accent)}
+#lb{position:fixed;inset:0;background:rgba(18,16,14,.94);z-index:200;display:none;align-items:center;justify-content:center}
+#lb.on{display:flex}
+#lb img{max-width:92vw;max-height:84vh;border-radius:3px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);font-size:32px;line-height:1;color:#fff;background:rgba(0,0,0,.35);border:0;width:52px;height:52px;border-radius:50%;cursor:pointer}
+#lb .nav:hover{background:rgba(0,0,0,.6)}
+#lb .prev{left:14px}
+#lb .next{right:14px}
+#lb .x{position:absolute;top:14px;right:18px;font-size:24px;line-height:1;color:#fff;background:none;border:0;cursor:pointer}
+#lb .cnt{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#d9d2c8;font-size:13px;letter-spacing:.06em}
+@media(max-width:600px){#photo-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px}#lb .nav{width:42px;height:42px;font-size:24px}}
 
 /* history + giving */
 .hist{max-width:820px}
@@ -297,7 +315,8 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 <!-- ALBUM -->
 <section id="album" class="essay-band"><div class="wrap">
   <div class="sec-head"><h2><small>PHOTOS</small>교회 사진첩</h2><a class="more" id="fb-link" target="_blank" rel="noopener">페이스북에서 더 보기 →</a></div>
-  <div class="grid" id="album-grid"></div>
+  <div id="photo-grid"></div>
+  <div class="more-wrap"><button class="btn-more" id="ph-more">사진 더 보기</button></div>
 </div></section>
 
 <!-- HISTORY -->
@@ -427,16 +446,35 @@ function openPages(pages,title,sub){
   $("#modal").classList.add("on");
 }
 function openBul(i){const b=BULLETINS[i];openPages(b.pages,b.title,"주보 · BULLETIN");}
-function openAlbum(i){const a=ALBUMS[i];openPages(a.photos,a.title,a.date?fmt(a.date):"교회 사진첩");}
 if(typeof BULLETINS!=="undefined"&&BULLETINS.length){
   const b=BULLETINS[0];
   $("#bulletin").innerHTML=`<div class="bul" onclick="openBul(0)"><img loading="lazy" src="${esc(b.pages[0])}" alt=""><div><div class="date">${fmt(b.date)}</div><h4>${esc(b.title)}</h4><span class="read">주보 보기 →</span></div></div>`
     +(BULLETINS.length>1?`<ul class="news-list blist">${BULLETINS.slice(1,6).map((x,i)=>`<li onclick="openBul(${i+1})"><div class="date">${fmt(x.date)}</div><h4>${esc(x.title)}</h4></li>`).join("")}</ul>`:"");
 }
 if(typeof FACEBOOK_URL!=="undefined")$("#fb-link").href=FACEBOOK_URL;
-if(typeof ALBUMS!=="undefined"&&ALBUMS.length){
-  $("#album-grid").innerHTML=ALBUMS.map((a,i)=>`<div class="pcard" onclick="openAlbum(${i})"><div class="thumb"><img loading="lazy" src="${esc(a.photos[0])}" alt=""></div><h4>${esc(a.title)}</h4><div class="date">${a.date?fmt(a.date)+" · ":""}사진 ${a.photos.length}장</div></div>`).join("");
-}else{$("#album-grid").innerHTML=`<div class="fallback">사진이 곧 올라옵니다.</div>`}
+if(typeof PHOTOS!=="undefined"&&PHOTOS.length){
+  const G=$("#photo-grid"),MORE=$("#ph-more"),STEP=32;let shown=0,cur=0;
+  const lb=document.createElement("div");lb.id="lb";
+  lb.innerHTML=`<button class="x" aria-label="닫기">✕</button><button class="nav prev" aria-label="이전 사진">‹</button><img alt=""><button class="nav next" aria-label="다음 사진">›</button><div class="cnt"></div>`;
+  document.body.appendChild(lb);
+  const lbImg=lb.querySelector("img"),lbCnt=lb.querySelector(".cnt");
+  function lbShow(i){cur=(i+PHOTOS.length)%PHOTOS.length;lbImg.src=PHOTOS[cur];lbCnt.textContent=(cur+1)+" / "+PHOTOS.length;lb.classList.add("on");document.body.style.overflow="hidden";}
+  function lbClose(){lb.classList.remove("on");lbImg.removeAttribute("src");document.body.style.overflow="";}
+  lb.querySelector(".x").onclick=lbClose;
+  lb.querySelector(".prev").onclick=function(e){e.stopPropagation();lbShow(cur-1);};
+  lb.querySelector(".next").onclick=function(e){e.stopPropagation();lbShow(cur+1);};
+  lb.onclick=function(e){if(e.target===lb)lbClose();};
+  document.addEventListener("keydown",function(e){if(!lb.classList.contains("on"))return;if(e.key==="Escape")lbClose();else if(e.key==="ArrowLeft")lbShow(cur-1);else if(e.key==="ArrowRight")lbShow(cur+1);});
+  function phRender(){
+    const part=PHOTOS.slice(shown,shown+STEP);
+    G.insertAdjacentHTML("beforeend",part.map((p,k)=>`<div class="ph" data-i="${shown+k}"><img loading="lazy" src="${esc(p)}" alt="평화의교회 사진" onload="this.classList.add('in')"></div>`).join(""));
+    shown+=part.length;
+    if(shown>=PHOTOS.length)MORE.style.display="none";
+    else MORE.textContent=`사진 더 보기 (${shown} / ${PHOTOS.length})`;
+  }
+  G.addEventListener("click",function(e){const d=e.target.closest(".ph");if(d)lbShow(+d.dataset.i);});
+  MORE.onclick=phRender;phRender();
+}else{$("#photo-grid").innerHTML=`<div class="fallback">사진이 곧 올라옵니다.</div>`;$("#ph-more").style.display="none";}
 
 /* pastor greeting (inside 교회 소개) */
 if(typeof GREETING!=="undefined"&&GREETING.body&&GREETING.body.trim()){
