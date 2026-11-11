@@ -29,6 +29,7 @@ const SERMONS = [
 ];
 
 const SHORTS = [
+  { id: "lfP3FcYLtWA", title: "무지개를 잘못 읽은 사람들, 그러나" },
   { id: "VkNB8QCOQdk", title: "완벽한 병실에는 귀신이 산다" },
   { id: "HjypcVQ-sRw", title: "예수와 존 웨인, 그리고 인디언" },
   { id: "_DT8_MBPfoE", title: "작은 동물에게 젖을 먹이는 이사야" },
