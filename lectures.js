@@ -4,6 +4,7 @@
    id 는 유튜브 주소의 v= 뒤 11글자.  series 는 묶음 이름(없으면 "").
    ===================================================================== */
 const LECTURES = [
+  { id: "_aXn2N-o9qw", title: "아도르노 90분만에 따라잡기", series: "" },
   { id: "Hh-zHguQq-A", title: "문세광은 누구인가?", series: "" },
   { id: "16bFXskgFWI", title: "The Swerve: 세계는 어떻게 근대가 되었는가", series: "" },
   { id: "1fdne53frJY", title: "셰익스피어 심리학 2강", series: "셰익스피어 심리학" },
