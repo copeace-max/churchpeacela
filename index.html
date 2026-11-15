@@ -211,6 +211,12 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 .modal{position:fixed;inset:0;background:rgba(10,8,5,.86);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
 .modal.on{display:flex}
 .modal .box{width:min(960px,100%);background:#000;aspect-ratio:16/9;border-radius:6px;overflow:hidden}
+.vwrap{width:min(960px,100%);max-height:92vh;overflow:auto;border-radius:6px}
+.vwrap.v{width:min(420px,100%)}
+.vwrap .box{width:100%}
+.vwrap #cpc-root{background:var(--paper);color:var(--ink);padding:0 30px 22px;border-radius:0 0 6px 6px}
+.vwrap #cpc-root .cpc{border-top:0;padding-top:22px}
+@media(max-width:600px){.vwrap #cpc-root{padding:0 18px 18px}}
 .modal .box.v{aspect-ratio:9/16;width:min(420px,100%);max-height:92vh}
 .modal iframe{width:100%;height:100%;border:0}
 .modal .x{position:absolute;top:18px;right:22px;color:#fff;font-size:34px;cursor:pointer;line-height:1}
@@ -388,6 +394,11 @@ footer .mark{font-family:var(--serif);font-weight:900;font-size:22px;color:var(-
 <script src="videos.js?v=5"></script>
 <script src="lectures.js?v=2"></script>
 <script src="photos.js?v=4"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js?v=1"></script>
+<script src="comments.js?v=1"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -404,10 +415,18 @@ $("#yt-link").href="https://www.youtube.com/"+SITE.youtubeHandle+"?sub_confirmat
 $("#letters-h").textContent=SITE.pastor+"의 목회서신";
 
 /* modal */
-function openVideo(v,vertical){$("#modal-body").innerHTML=`<div class="box ${vertical?"v":""}"><iframe src="https://www.youtube.com/embed/${v}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;$("#modal").classList.add("on");}
+function cpcFor(v){
+  if(typeof SERMONS!=="undefined"){const s=SERMONS.find(x=>x.id===v);if(s)return{pid:"sermon-"+v,t:s.title||""}}
+  if(typeof LECTURES!=="undefined"){const s=LECTURES.find(x=>x.id===v);if(s)return{pid:"lecture-"+v,t:s.title||""}}
+  return null}
+function openVideo(v,vertical){const k=cpcFor(v);
+  $("#modal-body").innerHTML=`<div class="vwrap${vertical?" v":""}"><div class="box ${vertical?"v":""}"><iframe src="https://www.youtube.com/embed/${v}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>${k?`<div id="cpc-root"></div>`:""}</div>`;
+  $("#modal").classList.add("on");
+  if(k&&window.CPC)CPC.attach(k.pid,k.t);}
 function openLetter(i){const L=LETTERS[i];const paras=L.body.trim().split(/\n\s*\n/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join("");
-  $("#modal-body").innerHTML=`<div class="article"><div class="date">${fmt(L.date)}</div><h2>${esc(L.title)}</h2>${paras}<div class="byline">${esc(SITE.pastor)} · ${esc(SITE.churchNameKo)}</div></div>`;$("#modal").classList.add("on");}
-function closeModal(){$("#modal").classList.remove("on");$("#modal-body").innerHTML="";}
+  $("#modal-body").innerHTML=`<div class="article"><div class="date">${fmt(L.date)}</div><h2>${esc(L.title)}</h2>${paras}<div class="byline">${esc(SITE.pastor)} · ${esc(SITE.churchNameKo)}</div><div id="cpc-root"></div></div>`;$("#modal").classList.add("on");
+  if(window.CPC)CPC.attach("letter-"+L.date,L.title);}
+function closeModal(){if(window.CPC)CPC.detach();$("#modal").classList.remove("on");$("#modal-body").innerHTML="";}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
 
 /* letters & news from content.js */
